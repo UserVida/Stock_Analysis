@@ -14,54 +14,73 @@ In order to evaluate the performance of each stock, the analysis required gettin
 
 The amount for the total daily volume was retrieved by using a code to create a for loop that initialized the variable tickerVolumes to zero and then iterated it through the row of tickers to collect the value of the total volume for each ticker.
 
-Dim tickerVolumes(12) As Long
+        Dim tickerVolumes(12) As Lon
 
-For i = 0 To 11
-        tickerVolumes(i) = 0
-Next i
+        For i = 0 To 11
+        tickerVolumes(i) = 0      
+        Next i
 
-For i = 2 To RowCount
-tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+        For i = 2 To RowCount
+        tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
 
 The yearly return for each stock was performed through a calculation. The starting prices and ending prices for each stock was retrieved through an if condition under a for loop as shown in the code below. 
 
-Dim tickerStartingPrices(12) As Single
-Dim tickerEndingPrices(12) As Single
+        Dim tickerStartingPrices(12) As Single
+        Dim tickerEndingPrices(12) As Single
 
-For i = 0 To 11
-        tickerStartingPrices(i) = 0
-        tickerEndingPrices(i) = 0
-Next i
+        For i = 0 To 11
+                tickerStartingPrices(i) = 0
+                tickerEndingPrices(i) = 0
+        Next i
 
-For i = 2 To RowCount
-If Cells(i - 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
-            
+        For i = 2 To RowCount
+            If Cells(i - 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
             tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
-    
-        End If
-        
-       
+            End If
+               
             
-If Cells(i + 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
-        
+            If Cells(i + 1, 1).Value <> tickers(tickerIndex) And Cells(i, 1).Value = tickers(tickerIndex) Then
             tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
-        
-          End If
+            End If
 
     
 The calculation to get the yearly return for each stock in the return column of the stock analysis worksheet was: 
 
-Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
+        Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
 
 The resulting value was then formatted into a percentage value.
 
-Range("C4:C15").NumberFormat = "0.0%"
+        Range("C4:C15").NumberFormat = "0.0%"
 
 The original stock analysis code was refactored to improve speed and efficiency to handle larger data sets. The main change to the code included initializing a variable named tickerIndex, which was then used to access the index for the ticker array and the three output arrays: tickerVolume, tickerStartingPrice and tickerEndingPrice. 
 
 The refactored code shaved off a whole second on the execution of the entire macro as seen in the comparison images of the execution times documented by the timer. The time was recorded through a code which utilized a starttime and endtime function and output the runtime in a message box. 
 
-INSERT IMAGES
+Runtime for orginal code (2017 stock analysis). 
+
+<img width="233" alt="InitialCode2017" src="https://user-images.githubusercontent.com/97644424/159132615-30c60979-08a4-4b10-87c0-60764a4db497.PNG">
+
+
+
+
+Runtime for refactored code (2017 stock analysis).
+
+<img width="243" alt="VBA_Challenge_2017" src="https://user-images.githubusercontent.com/97644424/159132618-1e4838d3-2c5f-4f72-b6c0-422c38b76f32.PNG">
+
+
+
+
+Runtime for original code (2018 stock analysis).
+
+<img width="229" alt="InitialCode2018" src="https://user-images.githubusercontent.com/97644424/159132617-c342693c-23f1-42f2-9706-2836c405a0cf.PNG">
+
+
+
+
+Runtime for refactored code (2018 stock analysis). 
+
+<img width="239" alt="VBA_Challenge_2018" src="https://user-images.githubusercontent.com/97644424/159132620-81f756db-0741-478b-ac41-dbbc85d65fcb.PNG"> 
+
 
 ### Analysis of Results
 
@@ -69,11 +88,12 @@ The total daily volume of the stock refers to the number of stocks that were tra
 
 In 2017, all stocks showed growth except for TERP which shrunk by 7.2%. SEDG saw the most growth by 184.5%. Among all the stocks in the array, there was an average growth of 67.3%. The average of the total daily volume of all the stocks was 263,886,592. DQ had the lowest total daily volume at 35,796,200 while SPWR had the most at 782, 187, 000.
 
-INSERT 2017 IMAGE TABLE
+<img width="268" alt="2017_StockAnalysis" src="https://user-images.githubusercontent.com/97644424/159132684-ca2f95cd-49dc-48b7-9c4d-0e0e36b41f76.PNG">
+
 
 Mean while, in 2018 most stocks saw a shrinkage in their returns except for stocks ENPH and RUN which saw a 81.9% and 84% growth respectfully. DQ had the greatest shrinkage at a percentage of -62.6%. Overall, the stocks had an average shrinkage of -6.2%. The average of the total daily volume among all stocks was 275,503,183.AY had the lowest total daily volume at 83,079,900 while ENPH had the most at 607, 473, 500.
 
-INSTILL 2018 IMAGE TABLE
+<img width="268" alt="2018_StockAnalysis" src="https://user-images.githubusercontent.com/97644424/159132686-74e0d24b-3ff0-4929-83ee-088ed8ab569d.PNG"> 
 
 
 ## Summary
